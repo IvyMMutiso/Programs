@@ -1,0 +1,33 @@
+@import "./../../../styles/buttons.scss";
+
+.list-container {
+  padding-top: 8px;
+}
+
+.mat-header-text {
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.actions-column {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actions-column.mat-header-cell {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
+}
+.actions-column.mat-header-cell:last-child {
+  margin-right: 0;
+}
+
+.actions-icons {
+  color: $secondary-color;
+}
+
+::ng-deep .product-dialog {
+  min-width: 40%;
+}

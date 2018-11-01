@@ -1,0 +1,13 @@
+@import './../styles/app-colors.scss';
+
+.toolbar {
+    background-color: $primary-color;
+    color: #ffffff;    
+  }
+
+.container {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+  }

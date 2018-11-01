@@ -1,0 +1,21 @@
+<div class="list-container">
+  <mat-table [dataSource]="programs" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Program Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="mat-header-text actions-column">Actions</mat-header-cell>
+      <mat-cell *matCellDef="let element; let i=index;" class="actions-column">
+        <button class="btn exit-button" mat-button (click)="openDialog()">ADD ACTIVITY</button>
+        <button class="btn exit-button" mat-button (click)="viewActivities(element.id)">VIEW ACTIVITIES</button>
+
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
