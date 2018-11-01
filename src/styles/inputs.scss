@@ -1,0 +1,81 @@
+@import 'app-colors.scss';
+
+::ng-deep mat-form-field.input-default, 
+:host ::ng-deep mat-form-field.input-default {
+    padding-top: 16px;
+    font-size: 16px;
+    input {
+        line-height: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        height: 16px;
+    }
+    mat-select {
+        .mat-select-value {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+    }
+    mat-error.mat-error {
+        font-weight: normal;
+        line-height: 16px;
+    }
+     ::placeholder {
+        color: $placeholder-color;
+        font-weight: 600
+    }
+    .mat-form-field-underline .mat-form-field-ripple {
+        transform: none;
+        transition: none;
+    }
+    .mat-form-field-infix {
+        padding-top: 0;
+        padding-bottom: 0
+    }  // Inert
+    .mat-form-field-underline {
+        background-color: $placeholder-color; 
+    }
+    .mat-input-element {
+        color: $input-value-color;
+        opacity: 1
+    } // Hover //
+    &:hover {
+        &:not(.mat-focused):not(.mat-form-field-invalid):not(.mat-form-field-disabled) .mat-form-field-underline {
+            background-color: $input-value-color; 
+            opacity: 1;
+            height: 2px;
+        }
+    } // Focus //
+    &.mat-focused {
+        .mat-form-field-underline {
+            background-color: $secondary-color;
+            opacity: 1;
+            height: 2px;
+        }&.mat-form-field-should-float {
+            .mat-form-field-label {
+                color: $primary-color;
+                opacity: 1
+            }
+        }
+        .mat-select-arrow {
+            border-top-color: $primary-color;
+            color: $primary-color
+        }
+        
+    } // Error //
+    &.mat-form-field-invalid {
+        .mat-form-field-underline {
+            background-color: $error-color;
+            opacity: 1;
+            height: 2px;
+        }
+        .mat-form-field-label {
+            color: $error-color;
+            opacity: 1
+        }
+        .mat-error {
+            color: $error-color;
+            opacity: 1
+        }
+    }
+}

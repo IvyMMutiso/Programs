@@ -42,24 +42,21 @@ export class ProgramsListComponent implements OnInit {
   }
 
   viewActivities(programId: number) {
-    //   const dialogConfig = new MatDialogConfig();
+    this.showDialog(ActivitiesListComponent, programId);
 
-    //   dialogConfig.disableClose = true;
-    //   dialogConfig.autoFocus = true;
+  }
 
-    //   dialogConfig.position = {
-    //     "top": "0",
-    //     left: "0"
-    // };
+  addActivity(program: Program) {
+    this.showDialog(ActivityDetailsComponent, program);
+  }
 
-    //   this.dialog.open(ActivityDetailsComponent, dialogConfig);
-
+  showDialog(component, program) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
 
-    const dialogRef = this.dialog.open(ActivitiesListComponent, {
-      data: programId,
+    const dialogRef = this.dialog.open(component, {
+      data: program,
       panelClass: "product-dialog"
     });
     // dialogRef.afterClosed().subscribe(result => {

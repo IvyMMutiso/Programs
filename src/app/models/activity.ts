@@ -7,6 +7,7 @@ export class Activity {
 
     id: number;
     name: string;
-    createdate: Date;
-    enddate: Date;
+    expected_start_dtae: Date;
+    expected_end_date: Date;
+    workflowlevel1: string;
 }

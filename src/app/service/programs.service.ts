@@ -12,7 +12,8 @@ export class ProgramsService {
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
-      "Authorization": "Bearer GfR6vIHG0zTWaJle6TjNXvYUrjDn6g"
+      "Authorization": "Bearer GfR6vIHG0zTWaJle6TjNXvYUrjDn6g",
+      // "X-Requested-With": "XMLHttpRequest"
     })
   };
   LIVE_URI = "https://dev.toladata.io/api/";
@@ -21,7 +22,7 @@ export class ProgramsService {
 
   getPrograms(): Observable<Program[]> {
     return this.httpClient
-      .get(`${this.LIVE_URI}workflowlevel2/`, this.httpOptions)
+      .get(`${this.LIVE_URI}workflowlevel1/`, this.httpOptions)
       .pipe(map((res: Program[]) => res));
   }
 
@@ -29,5 +30,13 @@ export class ProgramsService {
     return this.httpClient
       .get(`${this.LIVE_URI}workflowlevel2/?workflowlevel1__id=` + programId, this.httpOptions)
       .pipe(map((res: Activity[]) => res));
+  }
+
+  addProgramActivity(activity: Activity): Observable<Activity[]> {
+    return this.httpClient
+      // .put(`${this.LIVE_URI}workflowlevel2/?workflowlevel1__id=` + activity.id, activity, this.httpOptions)
+      .put(`${this.LIVE_URI}workflowlevel2/?_HttpMethod=PATCH`, activity, this.httpOptions)
+      .pipe(map((res: Activity[]) => res));
+      // .pipe(map((res: AddUpdateResponse) => res));
   }
 }
