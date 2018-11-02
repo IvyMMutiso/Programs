@@ -38,4 +38,11 @@ export class ProgramsService {
       .pipe(map((res: Activity[]) => res));
       // .pipe(map((res: AddUpdateResponse) => res));
   }
+
+  deleteProgramActivity(activityId: number): Observable<Activity[]> {
+    return this.httpClient
+      .delete(`${this.LIVE_URI}workflowlevel2/` + activityId, this.httpOptions)
+      .pipe(map((res: Activity[]) => res));
+      // .pipe(map((res: AddUpdateResponse) => res));
+  }
 }

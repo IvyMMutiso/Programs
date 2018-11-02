@@ -5,20 +5,28 @@
     <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
   </ng-container>
 
+  <!-- Activity Name -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Program Name</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Activity Name</mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
   </ng-container>
 
+  <!-- Activity Name -->
+  <ng-container matColumnDef="expectedStartDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.expected_start_date}} </mat-cell>
+    </ng-container>
 
-  <!-- <ng-container matColumnDef="actions">
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef class="mat-header-text actions-column">Actions</mat-header-cell>
     <mat-cell *matCellDef="let element; let i=index;" class="actions-column">
-      <button class="btn exit-button" mat-button (click)="openDialog()">ADD ACTIVITY</button>
-      <button class="btn exit-button" mat-button (click)="viewActivities(element.id)">VIEW ACTIVITIES</button>
-
+      <button mat-icon-button class="actions-icons" (click)="deleteActivity(element)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
     </mat-cell>
-  </ng-container> -->
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
