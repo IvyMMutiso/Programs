@@ -1,13 +1,36 @@
 @import "./../../../styles/buttons.scss";
 
-.list-container {
-  padding-top: 8px;
+.programs-container {
+  height: 600px;
+  overflow: auto;
 }
 
-.mat-header-text {
-  text-transform: capitalize;
+.mat-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px; 
+  margin: 0 auto;
+}
+
+::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: $primary-color;
+}
+
+.mat-header-cell {
+  background-color: $secondary-color;
+  text-transform: uppercase;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
+  color: white;
+}
+
+mat-footer-row, mat-header-row, mat-row {
+  border-bottom-width: 0px;
+}
+
+.highlight {
+  background: $placeholder-color;
 }
 
 .actions-column {
@@ -20,6 +43,7 @@
   justify-content: flex-end;
   padding-right: 40px;
 }
+
 .actions-column.mat-header-cell:last-child {
   margin-right: 0;
 }
@@ -28,6 +52,25 @@
   color: $secondary-color;
 }
 
-::ng-deep .product-dialog {
-  min-width: 40%;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary-color; 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary-color; 
+}
+

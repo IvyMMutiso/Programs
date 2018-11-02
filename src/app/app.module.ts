@@ -15,7 +15,8 @@ import {
   MatInputModule,
   MatDatepickerModule,
   MatIconModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProgramsService } from "./service/programs.service";
@@ -23,6 +24,11 @@ import { ProgramsListComponent } from "./components/programs-list/programs-list.
 import { ActivityDetailsComponent } from "./components/activity-details/activity-details.component";
 import { ActivitiesListComponent } from "./components/activities-list/activities-list.component";
 import { DeleteActivityComponent } from "./components/delete-activity/delete-activity.component";
+import { StoreModule } from "@ngrx/store";
+import { programsListReducer } from "./reducers/programs.reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { AppEffects } from "./app.effects";
+import { ProgramEffects } from "./effects/programs.effects";
 
 @NgModule({
   declarations: [
@@ -48,7 +54,11 @@ import { DeleteActivityComponent } from "./components/delete-activity/delete-act
     MatInputModule,
     MatDatepickerModule,
     MatIconModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    StoreModule.forRoot({programs: programsListReducer}),
+    // EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([ProgramEffects]),
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     ActivityDetailsComponent,

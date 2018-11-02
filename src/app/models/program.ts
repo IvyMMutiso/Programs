@@ -9,8 +9,8 @@ export class Program {
     id: number;
 // "products": [],
 // "contact": {},
-    actual_start_date: Date;
-    actual_end_date: Date;
+    // actual_start_date: Date;
+    // actual_end_date: Date;
 // "actual_duration": "",
 // "actual_cost": "10000.00",
 // "address": null,
