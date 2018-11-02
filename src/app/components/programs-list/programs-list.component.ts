@@ -76,8 +76,8 @@ export class ProgramsListComponent implements OnInit {
     });
   }
 
-  viewActivities(programId: number) {
-    this.showDialog(ActivitiesListComponent, programId);
+  viewActivities(program: Program) {
+    this.showDialog(ActivitiesListComponent, program);
   }
 
   addActivity(program: Program) {
@@ -91,7 +91,7 @@ export class ProgramsListComponent implements OnInit {
 
     const dialogRef = this.dialog.open(component, {
       data: program,
-      panelClass: "product-dialog"
+      panelClass: "activities-dialog"
     });
     // dialogRef.afterClosed().subscribe(result => {
     //   if (result) {

@@ -21,7 +21,7 @@
   background-color: $secondary-color;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   color: white;
 }
 
@@ -74,3 +74,6 @@ mat-footer-row, mat-header-row, mat-row {
   background: $secondary-color; 
 }
 
+::ng-deep .activities-dialog {
+  min-width: 80%;
+}

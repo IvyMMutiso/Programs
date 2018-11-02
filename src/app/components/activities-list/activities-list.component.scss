@@ -1,0 +1,95 @@
+@import "./../../../styles/app-colors.scss";
+
+.activities-container {
+  max-height: 450px;
+  overflow: auto;
+  margin-top: 15px;
+}
+
+.mat-dialog-container {
+  padding: 15px;
+}
+
+.mat-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+  margin: 0 auto;
+}
+
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: $primary-color;
+}
+
+.button-container {
+  button {
+    margin: 0px;
+    color: red;
+  }
+}
+
+.header-text {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.mat-header-cell {
+  background-color: $secondary-color;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  color: white;
+}
+
+mat-footer-row,
+mat-header-row,
+mat-row {
+  border-bottom-width: 0px;
+}
+
+.highlight {
+  background: $placeholder-color;
+}
+
+.actions-column {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actions-column.mat-header-cell {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
+}
+
+.actions-column.mat-header-cell:last-child {
+  margin-right: 0;
+}
+
+.actions-icons {
+  color: $secondary-color;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary-color;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary-color;
+}
