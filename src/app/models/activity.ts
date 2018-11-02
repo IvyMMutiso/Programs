@@ -1,3 +1,4 @@
+import { Moment } from "moment";
 export class Activity {
     constructor(initialData: Partial<Activity> = null) {
         if (initialData != null) {
@@ -7,7 +8,8 @@ export class Activity {
 
     id: number;
     name: string;
-    expected_start_dtae: Date;
-    expected_end_date: Date;
+    expected_start_date: Moment;
+    expected_end_date: Moment;
     workflowlevel1: string;
 }
+

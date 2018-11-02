@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Activity } from "src/app/models/activity";
 import { ProgramsService } from "src/app/service/programs.service";
 import { Program } from "src/app/models/program";
+import * as moment from "moment";
 
 @Component({
   selector: "app-activity-details",
@@ -39,7 +40,8 @@ export class ActivityDetailsComponent implements OnInit {
 
   saveActivity() {
     this.activity.workflowlevel1 = "https://dev.toladata.io/api/workflowlevel1/" + this.program.id + "/";
-    // this.activity.id = this.program.id;
+    this.activity.expected_start_date = moment(this.activity.expected_start_date, "YYYY-MM-DD[T]HH:mm:ss");
+    this.activity.expected_end_date = moment(this.activity.expected_end_date, "YYYY-MM-DD[T]HH:mm:ss");
     this.createProduct();
     this.closeDialog();
   }

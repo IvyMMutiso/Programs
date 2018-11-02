@@ -34,8 +34,7 @@ export class ProgramsService {
 
   addProgramActivity(activity: Activity): Observable<Activity[]> {
     return this.httpClient
-      // .put(`${this.LIVE_URI}workflowlevel2/?workflowlevel1__id=` + activity.id, activity, this.httpOptions)
-      .put(`${this.LIVE_URI}workflowlevel2/?_HttpMethod=PATCH`, activity, this.httpOptions)
+      .post(`${this.LIVE_URI}workflowlevel2/`, activity, this.httpOptions)
       .pipe(map((res: Activity[]) => res));
       // .pipe(map((res: AddUpdateResponse) => res));
   }
