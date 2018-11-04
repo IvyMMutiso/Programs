@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Activity } from "src/app/models/activity";
 import { ProgramsService } from "src/app/service/programs.service";
 import { Program } from "src/app/models/program";
@@ -28,6 +28,12 @@ export const MY_FORMATS = {
 export class ActivityDetailsComponent implements OnInit {
   activityForm: FormGroup;
   activity: Activity;
+  activityDetails = {
+    name: "",
+    expected_start_date: "",
+    expected_end_date: ""
+  };
+  submitted = false;
 
   constructor(
     private readonly programsService: ProgramsService,
@@ -47,9 +53,19 @@ export class ActivityDetailsComponent implements OnInit {
       expected_end_date: [""]
     });
 
+    // this.activityForm = new FormGroup({
+    //   "name": new FormControl(this.activityDetails.name, [Validators.required]),
+    //   "expected_start_date": new FormControl(this.activityDetails.expected_start_date),
+    //   "expected_end_date": new FormControl(this.activityDetails.expected_end_date)
+    // });
+
     this.activityForm.valueChanges.subscribe(value => {
       this.activity = value;
     });
+  }
+
+  onSubmit(): void {
+      this.submitted = true;
   }
 
   saveActivity() {
@@ -57,19 +73,14 @@ export class ActivityDetailsComponent implements OnInit {
     this.activity.expected_start_date = moment(this.activity.expected_start_date, "YYYY-MM-DD[T]HH:mm:ss");
     this.activity.expected_end_date = moment(this.activity.expected_end_date, "YYYY-MM-DD[T]HH:mm:ss");
     this.createProduct();
-    this.closeDialog();
   }
 
   createProduct() {
-    console.log(this.activity);
     this.programsService.addProgramActivity(this.activity)
       .subscribe((response) => {
-        console.log(response);
-        // if (response.success) {
-        //   this.closeDialog();
-        // } else {
-        //   // this.duplicateProduct = true;
-        // }
+        if (response) {
+          this.closeDialog();
+        }
       });
   }
 

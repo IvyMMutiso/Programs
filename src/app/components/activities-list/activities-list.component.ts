@@ -13,6 +13,9 @@ import { DeleteActivityComponent } from "../delete-activity/delete-activity.comp
 import { Program } from "src/app/models/program";
 import { Store, select } from "@ngrx/store";
 import * as fromStore from "../../reducers/activities.reducer";
+import { ActivatedRoute } from "@angular/router";
+import { ActivitiesActionType } from "./../../actions/activities.actions";
+import * as ActivitiesActions from "../../actions/activities.actions";
 
 @Component({
   selector: "app-activities-list",
@@ -37,8 +40,23 @@ export class ActivitiesListComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly dialogRef: MatDialogRef<ActivitiesListComponent>,
     @Inject(MAT_DIALOG_DATA) public program: Program,
-    private readonly store: Store<fromStore.State>
-  ) {}
+    private readonly store: Store<fromStore.ActivitiesState>,
+    private readonly route: ActivatedRoute
+  ) {
+    this.route.paramMap.subscribe(params => {
+      this.store.dispatch(new ActivitiesActions.GetActivitiesList(program.id));
+    });
+    this.activities$ = store.select("activities");
+    // this.activities$.subscribe((user) => {
+    //   const profileMetadata = _.get(user, "profile.json_metadata");
+    //   if (profileMetadata) {
+    //     const jsonMetadata = JSON.parse(profileMetadata);
+    //     this.profileData = jsonMetadata.profile;
+    //   }
+    //   this.userPosts = _.get(user, "posts");
+    //   console.log(this.userPosts);
+    // });
+  }
 
   ngOnInit() {
     // this.subscription = this.store.pipe(select(fromStore.GetActivitiesList)).subscribe((activities: Activity[]) => {

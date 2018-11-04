@@ -62,11 +62,31 @@ export class ProgramsListComponent implements OnInit {
   }
 
   viewActivities(program: Program) {
-    this.showDialog(ActivitiesListComponent, program);
+    // this.showDialog(ActivitiesListComponent, program);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(ActivitiesListComponent, {
+      data: program,
+      panelClass: "activities-dialog"
+    });
   }
 
   addActivity(program: Program) {
-    this.showDialog(ActivityDetailsComponent, program);
+    // this.showDialog(ActivityDetailsComponent, program);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(ActivityDetailsComponent, {
+      data: program,
+      panelClass: "activities-dialog"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("logging me");
+        this.viewActivities(program);
+    });
   }
 
   showDialog(component, program) {
@@ -78,10 +98,5 @@ export class ProgramsListComponent implements OnInit {
       data: program,
       panelClass: "activities-dialog"
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.getProducts();
-    //   }
-    // });
   }
 }

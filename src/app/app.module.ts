@@ -31,6 +31,7 @@ import { AppEffects } from "./app.effects";
 import { ProgramEffects } from "./effects/programs.effects";
 import { ActivitiesEffects } from "./effects/activites.effects";
 import { activitiesReducer } from "./reducers/activities.reducer";
+import { reducers } from "./reducers";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { activitiesReducer } from "./reducers/activities.reducer";
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
+    StoreModule.forFeature("activities", reducers),
     StoreModule.forRoot({programs: programsListReducer, activities: activitiesReducer}),
     EffectsModule.forRoot([ProgramEffects, ActivitiesEffects]),
     MatProgressSpinnerModule

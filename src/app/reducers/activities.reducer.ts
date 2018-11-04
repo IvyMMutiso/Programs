@@ -2,19 +2,19 @@ import { Activity } from "../models/activity";
 import { ActivitiesActionType, ActivitiesListActions } from "../actions/activities.actions";
 
 
-export interface State {
-    activitiesList: Activity[];
+export interface ActivitiesState {
+    activitiesList: Array<Activity>;
 }
 
-export const initialState: State = {
+export const initialState: ActivitiesState = {
     activitiesList: null
 };
 
-export function activitiesReducer(state = initialState, action: ActivitiesListActions): State {
+export function activitiesReducer(state = initialState, action: ActivitiesListActions): ActivitiesState {
     switch (action.type) {
-        // case ActivitiesActionType.GetActivitiesList: {
-        //     return {...state, activitiesList: action.payload };
-        // }
+        case ActivitiesActionType.GetActivitiesList: {
+            return {...state };
+        }
         case ActivitiesActionType.GetActivitiesListSuccess: {
             return {...state, activitiesList: action.payload };
         }
@@ -24,4 +24,4 @@ export function activitiesReducer(state = initialState, action: ActivitiesListAc
     }
 }
 
-export const GetActivitiesList = (state: State) => state.activitiesList;
+export const GetActivitiesList = (state: ActivitiesState) => state.activitiesList;

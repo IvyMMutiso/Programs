@@ -22,6 +22,6 @@
 </form>
 
 <div fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button class="btn action-button" (click)="saveActivity()">Save</button>
+  <button mat-raised-button class="btn action-button" type="submit" [disabled]="activityForm.invalid" (click)="saveActivity()">Save</button>
   <button mat-raised-button class="btn action-button" (click)="cancel()">Cancel</button>
 </div>
