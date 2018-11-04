@@ -1,5 +1,4 @@
 @import "./../styles/app-colors.scss";
-@import "../styles/inputs.scss";
 
 .toolbar {
   background-color: $primary-color;
@@ -20,4 +19,14 @@
 
 .mat-toolbar-row, .mat-toolbar-single-row {
   height: 40px;
+}
+
+.heading-text {
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.subheading-text{
+  font-size: 16px;
 }

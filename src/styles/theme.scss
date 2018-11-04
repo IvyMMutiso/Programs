@@ -6,7 +6,6 @@
 $custom-typography: mat-typography-config(
   $font-family: 'Segoe UI',
   $input: mat-typography-level(16px, 1, 600),
-  $button: mat-typography-level(14px, 1.25, 600),
-  $subheading-1: mat-typography-level(20px, 1.25, 600)
+  $button: mat-typography-level(14px, 1.25, 600)
 );
 @include angular-material-typography($custom-typography);
