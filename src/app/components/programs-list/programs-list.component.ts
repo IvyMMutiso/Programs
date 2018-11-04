@@ -35,43 +35,28 @@ export class ProgramsListComponent implements OnInit {
     private readonly programsService: ProgramsService,
     private readonly dialog: MatDialog,
     private readonly store: Store<AppState>
-  ) {
-    // this.programs$ = store.pipe(select(new GetProgramsList));
-    // this.subscription = (this.store.pipe(select(new GetProgramsList)).subscribe(data => {
-    //   console.log("programs$ : ", data);
-    //   this.programs = data;
-    // }));
-
-    // this.programs$ = store.select("programs");
-  }
+  ) {}
 
   ngOnInit() {
     // this.programs$ = this.store.select(new GetProgramsList);
-    this.programsService.getPrograms().subscribe(
-      programs => {
-        console.log(programs);
-        this.store.dispatch({ type: "request_blogs", payload: programs});
-        this.isLoading = false;
-        this.programs = programs;
-        this.dataSource = new MatTableDataSource(this.programs);
-      }
-    );
-
-    // ("all").subscribe(
-    //   blogs=> {this.store.dispatch({ type: "request_blogs", payload:          blogs});
+    // this.programsService.getPrograms().subscribe(
+    //   programs => {
+    //     // console.log(programs);
+    //     this.store.dispatch({ type: "programs", payload: programs});
+    //     this.isLoading = false;
+    //     this.programs = programs;
+    //     this.dataSource = new MatTableDataSource(this.programs);
     //   }
     // );
-    // this.subscription = this.programs$.subscribe(data => {
-    //   console.log("programs$ : ", this.programs$);
-    //   // this.prepareExtensionsList(data);
-    // });
-    // this.getPrograms();
+    this.getPrograms();
   }
 
   getPrograms() {
     this.programs$ = this.programsService.getPrograms();
     this.programs$.subscribe(programs => {
+      this.isLoading = false;
       this.programs = programs;
+      console.log(programs);
       this.dataSource = new MatTableDataSource(this.programs);
     });
   }

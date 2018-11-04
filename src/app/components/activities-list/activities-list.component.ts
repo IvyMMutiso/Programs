@@ -1,10 +1,18 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Activity } from "src/app/models/activity";
-import { MatTableDataSource, MAT_DIALOG_DATA, MatDialogConfig, MatDialog, MatDialogRef } from "@angular/material";
+import {
+  MatTableDataSource,
+  MAT_DIALOG_DATA,
+  MatDialogConfig,
+  MatDialog,
+  MatDialogRef
+} from "@angular/material";
 import { ProgramsService } from "src/app/service/programs.service";
 import { DeleteActivityComponent } from "../delete-activity/delete-activity.component";
 import { Program } from "src/app/models/program";
+import { Store, select } from "@ngrx/store";
+import * as fromStore from "../../reducers/activities.reducer";
 
 @Component({
   selector: "app-activities-list",
@@ -14,18 +22,34 @@ import { Program } from "src/app/models/program";
 export class ActivitiesListComponent implements OnInit {
   activities: Activity[];
   activities$: Observable<Activity[]>;
-  displayedColumns: string[] = ["id", "name", "expectedStartDate", "actions"];
+  displayedColumns: string[] = [
+    "name",
+    "expectedStartDate",
+    "expectedStartDate",
+    "actions"
+  ];
   dataSource: MatTableDataSource<Activity>;
   isLoading = true;
+  subscription: Subscription;
 
   constructor(
     private readonly programsService: ProgramsService,
     private readonly dialog: MatDialog,
     private readonly dialogRef: MatDialogRef<ActivitiesListComponent>,
-    @Inject(MAT_DIALOG_DATA) public program: Program
+    @Inject(MAT_DIALOG_DATA) public program: Program,
+    private readonly store: Store<fromStore.State>
   ) {}
 
   ngOnInit() {
+    // this.subscription = this.store.pipe(select(fromStore.GetActivitiesList)).subscribe((activities: Activity[]) => {
+    //     if (activities) {
+    //       console.log("sub: ", activities);
+    //       this.isLoading = false;
+    //       this.activities = activities;
+    //       console.log("this.activities : ", this.activities);
+    //       this.dataSource = new MatTableDataSource(this.activities);
+    //     }
+    //   });
     this.getProgramActivities(this.program.id);
   }
 
@@ -35,6 +59,7 @@ export class ActivitiesListComponent implements OnInit {
     this.activities$.subscribe(activities => {
       this.isLoading = false;
       this.activities = activities;
+      console.log("this.activities : ", this.activities);
       this.dataSource = new MatTableDataSource(this.activities);
     });
   }
@@ -45,7 +70,7 @@ export class ActivitiesListComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(DeleteActivityComponent, {
-      data: activity,
+      data: activity
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

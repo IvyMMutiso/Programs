@@ -29,6 +29,8 @@ import { programsListReducer } from "./reducers/programs.reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { AppEffects } from "./app.effects";
 import { ProgramEffects } from "./effects/programs.effects";
+import { ActivitiesEffects } from "./effects/activites.effects";
+import { activitiesReducer } from "./reducers/activities.reducer";
 
 @NgModule({
   declarations: [
@@ -55,9 +57,8 @@ import { ProgramEffects } from "./effects/programs.effects";
     MatDatepickerModule,
     MatIconModule,
     MatNativeDateModule,
-    StoreModule.forRoot({programs: programsListReducer}),
-    // EffectsModule.forRoot([AppEffects]),
-    EffectsModule.forRoot([ProgramEffects]),
+    StoreModule.forRoot({programs: programsListReducer, activities: activitiesReducer}),
+    EffectsModule.forRoot([ProgramEffects, ActivitiesEffects]),
     MatProgressSpinnerModule
   ],
   entryComponents: [

@@ -5,11 +5,25 @@ import { Activity } from "src/app/models/activity";
 import { ProgramsService } from "src/app/service/programs.service";
 import { Program } from "src/app/models/program";
 import * as moment from "moment";
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from "@angular/material/core";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
 
+export const MY_FORMATS = {
+  display: {
+    dateInput: "DD.MM.YYYY",
+    monthYearLabel: "MMMM Y",
+    dateA11yLabel: "LL",
+    monthYearA11yLabel: "MMMM Y"
+  }
+};
 @Component({
   selector: "app-activity-details",
   templateUrl: "./activity-details.component.html",
-  styleUrls: ["./activity-details.component.scss"]
+  styleUrls: ["./activity-details.component.scss"],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class ActivityDetailsComponent implements OnInit {
   activityForm: FormGroup;

@@ -4,9 +4,7 @@
     <span>Listing Activities</span>
   </div>
   <div class="button-container">
-    <button mat-button class="actions-icons" (click)="closeDialog()">
-      CLOSE
-    </button>
+      <button mat-button class="btn action-button" (click)="closeDialog()">CLOSE</button>
   </div>
 </div>
 
@@ -17,14 +15,9 @@
 
 <div class="activities-container" *ngIf="!isLoading">
   <div *ngIf="activities.length === 0">No activities found</div>
+
   <mat-table [dataSource]="activities" mat-elevation-z4 *ngIf="activities.length > 0">
-
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">ID</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
-
-    <!-- Activity Name -->
+ <!-- Activty Name -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Activity Name</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
@@ -33,10 +26,16 @@
     <!-- Start Date -->
     <ng-container matColumnDef="expectedStartDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Start Date</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.expected_start_date}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.expected_start_date | date:"dd.MM.y"}} </mat-cell>
     </ng-container>
 
-    <!-- actions -->
+    <!-- End Date-->
+    <ng-container matColumnDef="expectedEndDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">End Date</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.expected_end_date | date:"dd.MM.y"}} </mat-cell>
+      </ng-container>
+
+      <!-- Actions -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef class="mat-header-text actions-column">Actions</mat-header-cell>
       <mat-cell *matCellDef="let element; let i=index;" class="actions-column">
