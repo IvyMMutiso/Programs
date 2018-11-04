@@ -1,20 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Store, select } from "@ngrx/store";
-import { Program } from "../../models/program";
-import { Activity } from "../../models/activity";
-import { AppState } from "../../app.state";
+import { Store } from "@ngrx/store";
 
 import {
   MatTableDataSource,
   MatDialog,
   MatDialogConfig
 } from "@angular/material";
-import { ProgramsService } from "src/app/service/programs.service";
 import { ActivityDetailsComponent } from "../activity-details/activity-details.component";
 import { ActivitiesListComponent } from "../activities-list/activities-list.component";
 import { Subscription } from "rxjs";
-import { GetProgramsList } from "src/app/actions/programs.actions";
+import { ProgramsService } from "src/app/lists/service/programs.service";
+import { Program } from "src/app/lists/models/program";
+import * as fromStore from "../../lists/reducers/programs.reducer";
+import * as ProgramsActions from "../../lists/actions/programs.actions";
 
 @Component({
   selector: "app-programs-list",
@@ -24,8 +23,6 @@ import { GetProgramsList } from "src/app/actions/programs.actions";
 export class ProgramsListComponent implements OnInit {
   programs: Program[];
   programs$: Observable<Program[]>;
-  activities: Activity[];
-  activities$: Observable<Activity[]>;
   displayedColumns: string[] = ["name", "actions"];
   dataSource: MatTableDataSource<Program>;
   subscription: Subscription;
@@ -34,11 +31,12 @@ export class ProgramsListComponent implements OnInit {
   constructor(
     private readonly programsService: ProgramsService,
     private readonly dialog: MatDialog,
-    private readonly store: Store<AppState>
-  ) {}
+    private readonly store: Store<fromStore.ProgramsState>
+  ) {
+    this.store.dispatch(new ProgramsActions.GetProgramsList());
+  }
 
   ngOnInit() {
-    // this.programs$ = this.store.select(new GetProgramsList);
     // this.programsService.getPrograms().subscribe(
     //   programs => {
     //     // console.log(programs);
@@ -52,6 +50,13 @@ export class ProgramsListComponent implements OnInit {
   }
 
   getPrograms() {
+    // this.store.select("programs").subscribe((programsList: Array<Program>) => {
+    //     this.isLoading = false;
+    //     this.programs = programsList;
+    //     console.log(programsList);
+    //     this.dataSource = new MatTableDataSource<Program>(programsList);
+    //   });
+
     this.programs$ = this.programsService.getPrograms();
     this.programs$.subscribe(programs => {
       this.isLoading = false;
@@ -61,42 +66,26 @@ export class ProgramsListComponent implements OnInit {
     });
   }
 
-  viewActivities(program: Program) {
-    // this.showDialog(ActivitiesListComponent, program);
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
+dialogConfig(program: Program) {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.hasBackdrop = true;
+  dialogConfig.data = program;
+  dialogConfig.panelClass = "activities-dialog";
 
-    const dialogRef = this.dialog.open(ActivitiesListComponent, {
-      data: program,
-      panelClass: "activities-dialog"
-    });
+  return dialogConfig;
+}
+
+  viewActivities(program: Program) {
+    this.dialog.open(ActivitiesListComponent, this.dialogConfig(program));
   }
 
   addActivity(program: Program) {
-    // this.showDialog(ActivityDetailsComponent, program);
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(ActivityDetailsComponent, {
-      data: program,
-      panelClass: "activities-dialog"
-    });
+    const dialogRef = this.dialog.open(ActivityDetailsComponent, this.dialogConfig(program));
     dialogRef.afterClosed().subscribe(result => {
       console.log("logging me");
         this.viewActivities(program);
-    });
-  }
-
-  showDialog(component, program) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(component, {
-      data: program,
-      panelClass: "activities-dialog"
     });
   }
 }

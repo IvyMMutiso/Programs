@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ActivitiesListComponent } from "./activities-list.component";
-import { ProgramsService } from "src/app/service/programs.service";
+import { ProgramsService } from "src/app/lists/service/programs.service";
 
 describe("ActivitiesListComponent", () => {
   let component: ActivitiesListComponent;
@@ -9,13 +9,14 @@ describe("ActivitiesListComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActivitiesListComponent ],
+      declarations: [ActivitiesListComponent],
       providers: [ProgramsService]
     })
-    .compileComponents().then(() => {
-      fixture = TestBed.createComponent(ActivitiesListComponent);
-    component = fixture.componentInstance;
-    });
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(ActivitiesListComponent);
+        component = fixture.componentInstance;
+      });
   }));
 
   it("should at least one activity", () => {

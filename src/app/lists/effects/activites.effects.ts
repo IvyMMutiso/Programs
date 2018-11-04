@@ -3,9 +3,9 @@ import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Observable } from "rxjs/Observable";
 import { switchMap, map, catchError } from "rxjs/operators";
-import { ProgramsService } from "../service/programs.service";
 import { of } from "rxjs";
 import { ActivitiesActionType, GetActivitiesListSuccess, GetActivitiesList } from "../actions/activities.actions";
+import { ProgramsService } from "../service/programs.service";
 import { Activity } from "../models/activity";
 
 @Injectable()

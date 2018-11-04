@@ -16,7 +16,7 @@
 <div class="activities-container" *ngIf="!isLoading">
   <div *ngIf="activities.length === 0">No activities found</div>
 
-  <mat-table [dataSource]="activities" mat-elevation-z4 *ngIf="activities.length > 0">
+  <mat-table [dataSource]="dataSource" mat-elevation-z4 *ngIf="activities.length > 0">
  <!-- Activty Name -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-text">Activity Name</mat-header-cell>

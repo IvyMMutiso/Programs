@@ -3,10 +3,10 @@ import { Action } from "@ngrx/store";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Observable } from "rxjs/Observable";
 import { switchMap, map, catchError } from "rxjs/operators";
-import { ProgramsService } from "../service/programs.service";
 import { GetProgramsListSuccess, ProgramsListActionType } from "../actions/programs.actions";
-import { Program } from "../models/program";
 import { of } from "rxjs";
+import { ProgramsService } from "../service/programs.service";
+import { Program } from "../models/program";
 
 @Injectable()
 export class ProgramEffects {
@@ -16,8 +16,8 @@ export class ProgramEffects {
   ) {}
 
   @Effect()
-  getEntity$: Observable<Action> = this.actions$.pipe(
-    ofType(ProgramsListActionType.GET_PROGRAMS_LIST),
+  getProgramsList$: Observable<Action> = this.actions$.pipe(
+    ofType(ProgramsListActionType.GetProgramsList),
     switchMap(() => this.service.getPrograms().pipe(
         map((programs: Program[]) => new GetProgramsListSuccess(programs)),
         catchError(error => of(error))

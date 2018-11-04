@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
-import { Activity } from "src/app/models/activity";
-import { ProgramsService } from "src/app/service/programs.service";
-import { Program } from "src/app/models/program";
 import * as moment from "moment";
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from "@angular/material/core";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import { ProgramsService } from "src/app/lists/service/programs.service";
+import { Program } from "src/app/lists/models/program";
+import { Activity } from "src/app/lists/models/activity";
 
 export const MY_FORMATS = {
   display: {
@@ -28,11 +28,6 @@ export const MY_FORMATS = {
 export class ActivityDetailsComponent implements OnInit {
   activityForm: FormGroup;
   activity: Activity;
-  activityDetails = {
-    name: "",
-    expected_start_date: "",
-    expected_end_date: ""
-  };
   submitted = false;
 
   constructor(
@@ -52,12 +47,6 @@ export class ActivityDetailsComponent implements OnInit {
       expected_start_date: [""],
       expected_end_date: [""]
     });
-
-    // this.activityForm = new FormGroup({
-    //   "name": new FormControl(this.activityDetails.name, [Validators.required]),
-    //   "expected_start_date": new FormControl(this.activityDetails.expected_start_date),
-    //   "expected_end_date": new FormControl(this.activityDetails.expected_end_date)
-    // });
 
     this.activityForm.valueChanges.subscribe(value => {
       this.activity = value;
