@@ -21,4 +21,6 @@ export const activitiesReducers: ActionReducerMap<ActivitiesState> = {
 };
 
 export const getProgramsList = (state: ProgramsState) => state.programsList.programsList;
+export const GetActivitiesList = (state: ActivitiesState) => state.activitiesList.activitiesList;
+
 

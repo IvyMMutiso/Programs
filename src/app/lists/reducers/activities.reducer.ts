@@ -24,4 +24,4 @@ export function activitiesReducer(state = initialState, action: ActivitiesListAc
     }
 }
 
-export const GetActivitiesList = (state: ActivitiesState) => state.activitiesList;
+// export const GetActivitiesList = (state: ActivitiesState) => state.activitiesList;

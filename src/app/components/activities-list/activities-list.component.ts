@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild, OnDestroy } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import {
   MatTableDataSource,
@@ -9,7 +9,7 @@ import {
   MatPaginator
 } from "@angular/material";
 import { DeleteActivityComponent } from "../delete-activity/delete-activity.component";
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 import * as fromStore from "../../lists/reducers/activities.reducer";
 import * as ActivitiesActions from "../../lists/actions/activities.actions";
 import { ProgramsService } from "src/app/lists/service/programs.service";
@@ -21,7 +21,7 @@ import { Activity } from "src/app/lists/models/activity";
   templateUrl: "./activities-list.component.html",
   styleUrls: ["./activities-list.component.scss"]
 })
-export class ActivitiesListComponent implements OnInit {
+export class ActivitiesListComponent implements OnInit, OnDestroy {
   activities: Activity[];
   activities$: Observable<Activity[]>;
   displayedColumns: string[] = [
@@ -54,27 +54,46 @@ export class ActivitiesListComponent implements OnInit {
     // this.activities$ = this.store.pipe(select("activities"), map(activities => activities ? activities.activitiesList : ""));
     // console.log(" this.activities : ",  this.activities$);
 
-    this.getProgramActivities(this.program.id);
+    this.getProgramActivities();
   }
 
-  getProgramActivities(programId: number) {
-    // this.store.select("activities").subscribe((activitiesList: Array<Activity>) => {
-    //     this.isLoading = false;
-    //     this.activities = activitiesList;
-    //     console.log("*******", this.activities);
-    //     this.dataSource = new MatTableDataSource<Activity>(activitiesList);
-    //   });
+  getProgramActivities() {
+    // this.activities$ = this.programsService.getProgramActivities(programId);
+    // this.activities$.subscribe(activities => {
+    //   this.isLoading = false;
+    //   this.activities = activities;
+    //   this.dataSource = new MatTableDataSource<Activity>(this.activities);
+    //   this.dataSource.paginator = this.paginator;
+    //   this.totalSize = this.activities.length;
+    //   this.iterator();
+    // });
 
-    this.activities$ = this.programsService.getProgramActivities(programId);
-    this.activities$.subscribe(activities => {
-      this.isLoading = false;
-      this.activities = activities;
-      // console.log("this.activities : ", this.activities);
-      this.dataSource = new MatTableDataSource<Activity>(this.activities);
-      this.dataSource.paginator = this.paginator;
-      this.totalSize = this.activities.length;
-      this.iterator();
+    this.subscription = this.store.pipe(select("activities")).subscribe(data => {
+      this.prepareActivitiesList(data);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  prepareActivitiesList(data) {
+    if (data.activitiesList == null) {
+      this.store.dispatch(new ActivitiesActions.GetActivitiesList(this.program.id));
+      return;
+    }
+
+    if (data.activitiesList.activitiesList !== null) {
+      this.activities = data.activitiesList.activitiesList;
+      this.dataSource = new MatTableDataSource<Activity>(null);
+      setTimeout(() => {
+        this.dataSource = new MatTableDataSource<Activity>(this.activities);
+        this.isLoading = false;
+        this.dataSource.paginator = this.paginator;
+        this.totalSize = this.activities.length;
+        this.iterator();
+      }, 1);
+    }
   }
 
   iterator() {
@@ -100,7 +119,7 @@ export class ActivitiesListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getProgramActivities(this.program.id);
+        this.getProgramActivities();
       }
     });
   }
