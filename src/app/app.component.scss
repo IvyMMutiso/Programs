@@ -2,7 +2,10 @@
 
 .toolbar {
   background-color: $primary-color;
-  color: #ffffff;
+  color: white;
+  -webkit-box-shadow: 0 10px 6px -6px $input-value-color;
+  -moz-box-shadow: 0 10px 6px -6px $input-value-color;
+  box-shadow: 0 10px 6px -6px $input-value-color;
 }
 
 .container {
@@ -22,11 +25,10 @@
 }
 
 .heading-text {
-  font-size: 20px;
-  line-height: 1.25;
-  font-weight: 600;
+  font-size: 40px;
+  padding-top: 20px;
 }
 
 .subheading-text{
-  font-size: 16px;
+  font-size: 10px;
 }

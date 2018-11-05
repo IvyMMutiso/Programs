@@ -20,9 +20,9 @@
 .mat-header-cell {
   background-color: $secondary-color;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
+  text-shadow: 2px 2px $primary-color;
 }
 
 mat-footer-row, mat-header-row, mat-row {
@@ -76,4 +76,20 @@ mat-footer-row, mat-header-row, mat-row {
 
 ::ng-deep .activities-dialog {
   min-width: 80%;
+}
+
+.view-icon {
+  color: #FFA500;
+}
+
+.default-status {
+  color: #B7B7B7;
+}
+
+.green {
+  color: #32CD32;
+}
+
+.red {
+  color: $error-color;
 }

@@ -8,19 +8,30 @@
 
     <!-- Program Name -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Program Name</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef>Program Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+          <mat-icon class="default-status" [ngClass]="element.status ? element.status :''">fiber_manual_record</mat-icon>
+          {{element.name}} 
+      </mat-cell>
+    </ng-container>
+
+    <!-- Start Date -->
+    <ng-container matColumnDef="start_date">
+      <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.start_date | date:"dd.MM.y"}} </mat-cell>
     </ng-container>
 
     <!-- Actions -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef class="actions-column">Actions</mat-header-cell>
       <mat-cell *matCellDef="let element; let i=index;" class="actions-column">
-        <button mat-button class="actions-icons" (click)="addActivity(element)">
-          ADD ACTIVITY
+        <button mat-icon-button class="green" (click)="addActivity(element)" matTooltip="Add activity"
+          matTooltipPosition="below">
+          <mat-icon>add_circle_outline</mat-icon>
         </button>
-        <button mat-button class="actions-icons" (click)="viewActivities(element)">
-          VIEW ACTIVITIES
+        <button mat-icon-button class="view-icon" (click)="viewActivities(element)" matTooltip="View program activities"
+          matTooltipPosition="below">
+          <mat-icon>open_in_new</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

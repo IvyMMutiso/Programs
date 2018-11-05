@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export class Program {
     constructor(initialData: Partial<Program> = null) {
         if (initialData != null) {
@@ -7,4 +9,6 @@ export class Program {
 
     id: number;
     name: string;
+    start_date: Moment;
+    status: string;
 }

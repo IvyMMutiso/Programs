@@ -6,8 +6,7 @@ import {
   MatTableDataSource,
   MatDialog,
   MatDialogConfig,
-  MatPaginator,
-  PageEvent
+  MatPaginator
 } from "@angular/material";
 import { ActivityDetailsComponent } from "../activity-details/activity-details.component";
 import { ActivitiesListComponent } from "../activities-list/activities-list.component";
@@ -25,7 +24,7 @@ import * as ProgramsActions from "../../lists/actions/programs.actions";
 export class ProgramsListComponent implements OnInit {
   programs: Program[];
   programs$: Observable<Program[]>;
-  displayedColumns: string[] = ["name", "actions"];
+  displayedColumns: string[] = ["name", "start_date", "actions"];
   dataSource: MatTableDataSource<Program>;
   subscription: Subscription;
   isLoading = true;
@@ -69,7 +68,7 @@ export class ProgramsListComponent implements OnInit {
     this.programs$.subscribe(programs => {
       this.isLoading = false;
       this.programs = programs;
-      // console.log(programs);
+      console.log(programs);
       this.dataSource = new MatTableDataSource(this.programs);
       this.dataSource.paginator = this.paginator;
       this.totalSize = this.programs.length;

@@ -39,9 +39,13 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef class="mat-header-text actions-column">Actions</mat-header-cell>
       <mat-cell *matCellDef="let element; let i=index;" class="actions-column">
-        <button mat-button class="actions-icons" (click)="deleteActivity(element)">
+          <button mat-icon-button color="warn" (click)="deleteActivity(element)" 
+                matTooltip="Delete activity" matTooltipPosition="below">
+              <mat-icon>delete</mat-icon>
+           </button>
+        <!-- <button mat-button class="actions-icons" (click)="deleteActivity(element)">
           DELETE
-        </button>
+        </button> -->
       </mat-cell>
     </ng-container>
 
