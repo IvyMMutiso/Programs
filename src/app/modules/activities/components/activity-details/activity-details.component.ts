@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms"
 import * as moment from "moment";
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from "@angular/material/core";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { ProgramsService } from "src/app/lists/service/programs.service";
-import { Program } from "src/app/lists/models/program";
-import { Activity } from "src/app/lists/models/activity";
+import { Activity } from "../../models/activity";
+import { Program } from "src/app/modules/programs/models/program";
+import { ProgramsService } from "src/app/modules/shared/service/programs.service";
 
 export const MY_FORMATS = {
   display: {

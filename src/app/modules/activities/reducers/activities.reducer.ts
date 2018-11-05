@@ -1,6 +1,5 @@
-import { Activity } from "../models/activity";
 import { ActivitiesActionType, ActivitiesListActions } from "../actions/activities.actions";
-
+import { Activity } from "src/app/modules/activities/models/activity";
 
 export interface ActivitiesState {
     activitiesList: Array<Activity>;

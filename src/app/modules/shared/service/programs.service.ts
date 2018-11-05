@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { map, catchError } from "rxjs/operators";
-import { Program } from "../models/program";
-import { Activity } from "../models/activity";
 import { error } from "@angular/compiler/src/util";
+import { Program } from "../../programs/models/program";
+import { Activity } from "../../activities/models/activity";
 
 @Injectable({
   providedIn: "root"
@@ -22,8 +22,7 @@ export class ProgramsService {
 
   getPrograms(): Observable<Program[]> {
     return this.httpClient
-    // const requestUrl = `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-    // http://localhost:4200/api/lessons?courseId=1&filter=&sortOrder=asc&pageNumber=0&pageSize=3
+    // ${this.LIVE_URI}workflowlevel1/?courseId=1&filter=&sortOrder=asc&pageNumber=0&pageSize=3
       .get(`${this.LIVE_URI}workflowlevel1/`, this.httpOptions)
       // .pipe(map((res: Program[]) => res));
       .pipe(

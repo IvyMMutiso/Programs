@@ -5,8 +5,8 @@ import { Observable } from "rxjs/Observable";
 import { switchMap, map, catchError } from "rxjs/operators";
 import { GetProgramsListSuccess, ProgramsListActionType } from "../actions/programs.actions";
 import { of } from "rxjs";
-import { ProgramsService } from "../service/programs.service";
 import { Program } from "../models/program";
+import { ProgramsService } from "../../shared/service/programs.service";
 
 @Injectable()
 export class ProgramEffects {

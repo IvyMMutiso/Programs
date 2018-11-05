@@ -8,14 +8,13 @@ import {
   MatDialogConfig,
   MatPaginator
 } from "@angular/material";
-import { ActivityDetailsComponent } from "../activity-details/activity-details.component";
-import { ActivitiesListComponent } from "../activities-list/activities-list.component";
 import { Subscription } from "rxjs";
-import { ProgramsService } from "src/app/lists/service/programs.service";
-import { Program } from "src/app/lists/models/program";
-import * as fromStore from "../../lists/reducers/programs.reducer";
-import * as ProgramsActions from "../../lists/actions/programs.actions";
-import { GetProgramsList } from "../../lists/actions/programs.actions";
+import * as fromStore from "../../reducers/programs.reducer";
+import * as ProgramsActions from "../../actions/programs.actions";
+import { Program } from "../../models/program";
+import { ActivitiesListComponent } from "src/app/modules/activities/components/activities-list/activities-list.component";
+import { ActivityDetailsComponent } from "src/app/modules/activities/components/activity-details/activity-details.component";
+import { ProgramsService } from "src/app/modules/shared/service/programs.service";
 
 @Component({
   selector: "app-programs-list",
@@ -66,7 +65,7 @@ export class ProgramsListComponent implements OnInit {
 
   prepareProgramsList(data) {
     if (data.programsList == null) {
-      this.store.dispatch(new GetProgramsList());
+      this.store.dispatch(new ProgramsActions.GetProgramsList());
       return;
     }
 

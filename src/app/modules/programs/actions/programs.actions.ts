@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Program } from "./../models/program";
+import { Program } from "src/app/modules/programs/models/program";
 
 export enum ProgramsListActionType {
   GetProgramsList = "[Programs] Get All Programs",

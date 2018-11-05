@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { ProgramsService } from "src/app/lists/service/programs.service";
-import { Activity } from "src/app/lists/models/activity";
+import { Activity } from "../../models/activity";
+import { ProgramsService } from "src/app/modules/shared/service/programs.service";
 
 @Component({
   selector: "app-delete-activity",

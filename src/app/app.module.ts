@@ -21,17 +21,17 @@ import {
   MatTooltipModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ProgramsListComponent } from "./components/programs-list/programs-list.component";
-import { ActivityDetailsComponent } from "./components/activity-details/activity-details.component";
-import { ActivitiesListComponent } from "./components/activities-list/activities-list.component";
-import { DeleteActivityComponent } from "./components/delete-activity/delete-activity.component";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
-import { ProgramEffects } from "../app/lists/effects/programs.effects";
-import { ActivitiesEffects } from "../app/lists/effects/activites.effects";
-import { ProgramsService } from "./lists/service/programs.service";
-import { ListsModule } from "./lists/lists.module";
 import { metaReducers, reducers } from "./reducers";
+import { ProgramsListComponent } from "./modules/programs/components/programs-list/programs-list.component";
+import { ProgramEffects } from "./modules/programs/effects/programs.effects";
+import { ActivityDetailsComponent } from "./modules/activities/components/activity-details/activity-details.component";
+import { ActivitiesListComponent } from "./modules/activities/components/activities-list/activities-list.component";
+import { DeleteActivityComponent } from "./modules/activities/components/delete-activity/delete-activity.component";
+import { ActivitiesEffects } from "./modules/activities/effects/activites.effects";
+import { ProgramsService } from "./modules/shared/service/programs.service";
+import { SharedModule } from "./modules/shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { metaReducers, reducers } from "./reducers";
     MatNativeDateModule,
     EffectsModule.forRoot([ProgramEffects, ActivitiesEffects]),
     MatProgressSpinnerModule,
-    ListsModule.forRoot(),
+    SharedModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
     MatPaginatorModule,
     MatTooltipModule

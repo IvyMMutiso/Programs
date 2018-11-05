@@ -10,11 +10,11 @@ import {
 } from "@angular/material";
 import { DeleteActivityComponent } from "../delete-activity/delete-activity.component";
 import { Store, select } from "@ngrx/store";
-import * as fromStore from "../../lists/reducers/activities.reducer";
-import * as ActivitiesActions from "../../lists/actions/activities.actions";
-import { ProgramsService } from "src/app/lists/service/programs.service";
-import { Program } from "src/app/lists/models/program";
-import { Activity } from "src/app/lists/models/activity";
+import * as fromStore from "../../reducers/activities.reducer";
+import * as ActivitiesActions from "../../actions/activities.actions";
+import { Program } from "src/app/modules/programs/models/program";
+import { Activity } from "src/app/modules/activities/models/activity";
+import { ProgramsService } from "src/app/modules/shared/service/programs.service";
 
 @Component({
   selector: "app-activities-list",

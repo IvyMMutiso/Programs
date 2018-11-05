@@ -1,5 +1,5 @@
-import { Program } from "./../models/program";
 import { ProgramsListActions, ProgramsListActionType } from "../actions/programs.actions";
+import { Program } from "../models/program";
 
 export interface ProgramsState {
     programsList: Array<Program>;

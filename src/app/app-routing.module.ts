@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ProgramsListComponent } from "./components/programs-list/programs-list.component";
+import { ProgramsListComponent } from "./modules/programs/components/programs-list/programs-list.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "programs", pathMatch: "full" },
