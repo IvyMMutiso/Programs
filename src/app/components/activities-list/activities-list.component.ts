@@ -1,11 +1,12 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import {
   MatTableDataSource,
   MAT_DIALOG_DATA,
   MatDialogConfig,
   MatDialog,
-  MatDialogRef
+  MatDialogRef,
+  MatPaginator
 } from "@angular/material";
 import { DeleteActivityComponent } from "../delete-activity/delete-activity.component";
 import { Store } from "@ngrx/store";
@@ -27,11 +28,17 @@ export class ActivitiesListComponent implements OnInit {
     "name",
     "expectedStartDate",
     "expectedEndDate",
+    "progress",
+    "status",
     "actions"
   ];
   dataSource: MatTableDataSource<Activity>;
   isLoading = true;
   subscription: Subscription;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  pageSize = 6;
+  currentPage = 0;
+  totalSize = 0;
 
   constructor(
     private readonly programsService: ProgramsService,
@@ -62,9 +69,25 @@ export class ActivitiesListComponent implements OnInit {
     this.activities$.subscribe(activities => {
       this.isLoading = false;
       this.activities = activities;
-      console.log("this.activities : ", this.activities);
+      // console.log("this.activities : ", this.activities);
       this.dataSource = new MatTableDataSource<Activity>(this.activities);
+      this.dataSource.paginator = this.paginator;
+      this.totalSize = this.activities.length;
+      this.iterator();
     });
+  }
+
+  iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.activities.slice(start, end);
+    this.dataSource = new MatTableDataSource(part);
+  }
+
+  getPaginatorData(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
   }
 
   deleteActivity(activity: Activity) {

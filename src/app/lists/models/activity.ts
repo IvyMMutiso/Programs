@@ -11,5 +11,7 @@ export class Activity {
     expected_start_date: Moment;
     expected_end_date: Moment;
     workflowlevel1: string;
+    progress: string;
+    status: string;
 }
 

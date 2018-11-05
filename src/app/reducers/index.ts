@@ -4,8 +4,15 @@ import {
     MetaReducer,
   } from "@ngrx/store";
   import { environment } from "../../environments/environment";
-  import { RouterStateUrl } from "../shared/utils";
+  // import { RouterStateUrl } from "../shared/utils";
   import * as fromRouter from "@ngrx/router-store";
+import { Params } from "@angular/router";
+
+  export interface RouterStateUrl {
+    url: string;
+    params: Params;
+    queryParams: Params;
+  }
 
   export interface State {
     router: fromRouter.RouterReducerState<RouterStateUrl>;

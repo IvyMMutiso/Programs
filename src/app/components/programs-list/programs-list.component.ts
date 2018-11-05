@@ -28,9 +28,7 @@ export class ProgramsListComponent implements OnInit {
   dataSource: MatTableDataSource<Program>;
   subscription: Subscription;
   isLoading = true;
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator;
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSize = 10;
   currentPage = 0;
   totalSize = 0;
@@ -68,7 +66,7 @@ export class ProgramsListComponent implements OnInit {
     this.programs$.subscribe(programs => {
       this.isLoading = false;
       this.programs = programs;
-      console.log(programs);
+      // console.log(programs);
       this.dataSource = new MatTableDataSource(this.programs);
       this.dataSource.paginator = this.paginator;
       this.totalSize = this.programs.length;

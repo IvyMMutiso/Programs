@@ -4,14 +4,15 @@
 </div>
 
 <div class="programs-container mat-elevation-z8" *ngIf="!isLoading">
-  <mat-table [dataSource]="dataSource">
+  <mat-table [dataSource]="dataSource" (language)="companyLanguage($event)">
 
     <!-- Program Name -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Program Name</mat-header-cell>
-      <mat-cell *matCellDef="let element"> 
-          <mat-icon class="default-status" [ngClass]="element.status ? element.status :''">fiber_manual_record</mat-icon>
-          {{element.name}} 
+      <mat-cell *matCellDef="let element">
+        <mat-icon class="default-status" [ngClass]="element.status ? element.status :''" matTooltip="Program status"
+          matTooltipPosition="below">fiber_manual_record</mat-icon>
+        {{element.name}}
       </mat-cell>
     </ng-container>
 
@@ -39,7 +40,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
     <mat-row [ngClass]="{'highlight': index%2 == 1}" *matRowDef="let row; columns: displayedColumns;let index = index"></mat-row>
   </mat-table>
-  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 15]" [showFirstLastButtons]="true"
+  <mat-paginator #paginator *ngIf="programs.length > 10" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 15]" [showFirstLastButtons]="true"
     [length]="totalSize" [pageIndex]="currentPage" (page)="pageEvent = getPaginatorData($event)">
   </mat-paginator>
 </div>

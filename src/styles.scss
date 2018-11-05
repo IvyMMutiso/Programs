@@ -14,3 +14,35 @@ body {
   height: 100%;
   font-family: "Segoe UI", "Roboto", sans-serif;
 }
+
+.center-content {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.mat-header-cell {
+  background-color: $secondary-color;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 2px 2px $primary-color;
+}
+
+.highlight {
+  background: $placeholder-color;
+}
+
+.default-status {
+  color: #B7B7B7;
+}
+
+.green {
+  color: $green-color;
+}
+
+.yellow {
+  color: $yellow-color;
+}
+
+.red {
+  color: $error-color;
+}
