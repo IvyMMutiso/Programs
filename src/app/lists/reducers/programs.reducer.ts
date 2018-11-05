@@ -23,5 +23,5 @@ export function programsReducer(state = initialState, action: ProgramsListAction
     }
 }
 
-export const GetProgramsList = (state: ProgramsState) => state.programsList;
+// export const GetProgramsList = (state: ProgramsState) => state.programsList;
 

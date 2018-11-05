@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Observable } from "rxjs/Observable";
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 
 import {
   MatTableDataSource,
@@ -15,6 +15,7 @@ import { ProgramsService } from "src/app/lists/service/programs.service";
 import { Program } from "src/app/lists/models/program";
 import * as fromStore from "../../lists/reducers/programs.reducer";
 import * as ProgramsActions from "../../lists/actions/programs.actions";
+import { GetProgramsList } from "../../lists/actions/programs.actions";
 
 @Component({
   selector: "app-programs-list",
@@ -25,10 +26,11 @@ export class ProgramsListComponent implements OnInit {
   programs: Program[];
   programs$: Observable<Program[]>;
   displayedColumns: string[] = ["name", "start_date", "actions"];
-  dataSource: MatTableDataSource<Program>;
+  dataSource = new MatTableDataSource<Program>();
   subscription: Subscription;
   isLoading = true;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
   pageSize = 10;
   currentPage = 0;
   totalSize = 0;
@@ -42,36 +44,43 @@ export class ProgramsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.programsService.getPrograms().subscribe(
-    //   programs => {
-    //     // console.log(programs);
-    //     this.store.dispatch({ type: "programs", payload: programs});
-    //     this.isLoading = false;
-    //     this.programs = programs;
-    //     this.dataSource = new MatTableDataSource(this.programs);
-    //   }
-    // );
     this.getPrograms();
   }
 
   getPrograms() {
-    // this.store.select("programs").subscribe((programsList: Array<Program>) => {
-    //     this.isLoading = false;
-    //     this.programs = programsList;
-    //     console.log(programsList);
-    //     this.dataSource = new MatTableDataSource<Program>(programsList);
-    //   });
-
-    this.programs$ = this.programsService.getPrograms();
-    this.programs$.subscribe(programs => {
-      this.isLoading = false;
-      this.programs = programs;
-      // console.log(programs);
-      this.dataSource = new MatTableDataSource(this.programs);
-      this.dataSource.paginator = this.paginator;
-      this.totalSize = this.programs.length;
-      this.iterator();
+    this.subscription = this.store.pipe(select("programs")).subscribe(data => {
+      this.prepareProgramsList(data);
     });
+
+    // this.programs$ = this.programsService.getPrograms();
+    // this.programs$.subscribe(programs => {
+    //   this.isLoading = false;
+    //   this.programs = programs;
+    //   // console.log(programs);
+    //   this.dataSource = new MatTableDataSource(this.programs);
+    //   this.dataSource.paginator = this.paginator;
+    //   this.totalSize = this.programs.length;
+    //   this.iterator();
+    // });
+  }
+
+  prepareProgramsList(data) {
+    if (data.programsList == null) {
+      this.store.dispatch(new GetProgramsList());
+      return;
+    }
+
+    if (data.programsList.programsList !== null) {
+      this.programs = data.programsList.programsList;
+      this.dataSource = new MatTableDataSource<Program>(null);
+      setTimeout(() => {
+        this.dataSource = new MatTableDataSource<Program>(this.programs);
+        this.isLoading = false;
+        this.dataSource.paginator = this.paginator;
+        this.totalSize = this.programs.length;
+        this.iterator();
+      }, 1);
+    }
   }
 
   iterator() {
@@ -108,7 +117,6 @@ export class ProgramsListComponent implements OnInit {
       this.dialogConfig(program)
     );
     dialogRef.afterClosed().subscribe(result => {
-      console.log("logging me");
       this.viewActivities(program);
     });
   }

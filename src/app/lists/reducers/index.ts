@@ -20,4 +20,5 @@ export const activitiesReducers: ActionReducerMap<ActivitiesState> = {
     activitiesList: fromActivities.activitiesReducer
 };
 
+export const getProgramsList = (state: ProgramsState) => state.programsList.programsList;
 
