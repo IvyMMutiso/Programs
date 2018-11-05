@@ -22,6 +22,8 @@ export class ProgramsService {
 
   getPrograms(): Observable<Program[]> {
     return this.httpClient
+    // const requestUrl = `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
+    // http://localhost:4200/api/lessons?courseId=1&filter=&sortOrder=asc&pageNumber=0&pageSize=3
       .get(`${this.LIVE_URI}workflowlevel1/`, this.httpOptions)
       // .pipe(map((res: Program[]) => res));
       .pipe(

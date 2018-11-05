@@ -16,7 +16,8 @@ import {
   MatDatepickerModule,
   MatIconModule,
   MatNativeDateModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatPaginatorModule
 } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProgramsListComponent } from "./components/programs-list/programs-list.component";
@@ -60,6 +61,7 @@ import { metaReducers, reducers } from "./reducers";
     MatProgressSpinnerModule,
     ListsModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
+    MatPaginatorModule
   ],
   entryComponents: [
     ActivityDetailsComponent,

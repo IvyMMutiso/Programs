@@ -1,11 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 
 import {
   MatTableDataSource,
   MatDialog,
-  MatDialogConfig
+  MatDialogConfig,
+  MatPaginator,
+  PageEvent
 } from "@angular/material";
 import { ActivityDetailsComponent } from "../activity-details/activity-details.component";
 import { ActivitiesListComponent } from "../activities-list/activities-list.component";
@@ -27,6 +29,12 @@ export class ProgramsListComponent implements OnInit {
   dataSource: MatTableDataSource<Program>;
   subscription: Subscription;
   isLoading = true;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+
+  pageSize = 10;
+  currentPage = 0;
+  totalSize = 0;
 
   constructor(
     private readonly programsService: ProgramsService,
@@ -61,31 +69,50 @@ export class ProgramsListComponent implements OnInit {
     this.programs$.subscribe(programs => {
       this.isLoading = false;
       this.programs = programs;
-      console.log(programs);
+      // console.log(programs);
       this.dataSource = new MatTableDataSource(this.programs);
+      this.dataSource.paginator = this.paginator;
+      this.totalSize = this.programs.length;
+      this.iterator();
     });
   }
 
-dialogConfig(program: Program) {
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
-  dialogConfig.hasBackdrop = true;
-  dialogConfig.data = program;
-  dialogConfig.panelClass = "activities-dialog";
+  iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.programs.slice(start, end);
+    this.dataSource = new MatTableDataSource(part);
+  }
 
-  return dialogConfig;
-}
+  getPaginatorData(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
+  }
+
+  dialogConfig(program: Program) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.data = program;
+    dialogConfig.panelClass = "activities-dialog";
+
+    return dialogConfig;
+  }
 
   viewActivities(program: Program) {
     this.dialog.open(ActivitiesListComponent, this.dialogConfig(program));
   }
 
   addActivity(program: Program) {
-    const dialogRef = this.dialog.open(ActivityDetailsComponent, this.dialogConfig(program));
+    const dialogRef = this.dialog.open(
+      ActivityDetailsComponent,
+      this.dialogConfig(program)
+    );
     dialogRef.afterClosed().subscribe(result => {
       console.log("logging me");
-        this.viewActivities(program);
+      this.viewActivities(program);
     });
   }
 }
