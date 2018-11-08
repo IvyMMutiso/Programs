@@ -32,6 +32,9 @@ import { DeleteActivityComponent } from "./modules/activities/components/delete-
 import { ActivitiesEffects } from "./modules/activities/effects/activites.effects";
 import { ProgramsService } from "./modules/shared/service/programs.service";
 import { SharedModule } from "./modules/shared/shared.module";
+import { programsReducer } from "./modules/programs/reducers/programs.reducer";
+import { ProgramsModule } from "./modules/programs/programs.module";
+import { ActivitiesModule } from "./modules/activities/activities.module";
 
 @NgModule({
   declarations: [
@@ -63,7 +66,11 @@ import { SharedModule } from "./modules/shared/shared.module";
     SharedModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    // StoreModule.forRoot({
+    //   programs: programsReducer
+    // }),
+    ProgramsModule
   ],
   entryComponents: [
     ActivityDetailsComponent,

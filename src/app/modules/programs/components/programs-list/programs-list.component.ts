@@ -15,6 +15,7 @@ import { Program } from "../../models/program";
 import { ActivitiesListComponent } from "src/app/modules/activities/components/activities-list/activities-list.component";
 import { ActivityDetailsComponent } from "src/app/modules/activities/components/activity-details/activity-details.component";
 import { ProgramsService } from "src/app/modules/shared/service/programs.service";
+import { selectAllPrograms } from "../../reducers";
 
 @Component({
   selector: "app-programs-list",
@@ -47,9 +48,11 @@ export class ProgramsListComponent implements OnInit {
   }
 
   getPrograms() {
-    this.subscription = this.store.pipe(select("programs")).subscribe(data => {
-      this.prepareProgramsList(data);
-    });
+    this.subscription = this.store
+      .pipe(select(selectAllPrograms))
+      .subscribe(data => {
+        this.prepareProgramsList(data);
+      });
 
     // this.programs$ = this.programsService.getPrograms();
     // this.programs$.subscribe(programs => {
@@ -64,22 +67,20 @@ export class ProgramsListComponent implements OnInit {
   }
 
   prepareProgramsList(data) {
-    if (data.programsList == null) {
+    if (data == null) {
       this.store.dispatch(new ProgramsActions.GetProgramsList());
       return;
     }
 
-    if (data.programsList.programsList !== null) {
-      this.programs = data.programsList.programsList;
-      this.dataSource = new MatTableDataSource<Program>(null);
-      setTimeout(() => {
-        this.dataSource = new MatTableDataSource<Program>(this.programs);
-        this.isLoading = false;
-        this.dataSource.paginator = this.paginator;
-        this.totalSize = this.programs.length;
-        this.iterator();
-      }, 1);
-    }
+    this.programs = data;
+    this.dataSource = new MatTableDataSource<Program>(null);
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource<Program>(this.programs);
+      this.isLoading = false;
+      this.dataSource.paginator = this.paginator;
+      this.totalSize = this.programs.length;
+      this.iterator();
+    }, 1);
   }
 
   iterator() {

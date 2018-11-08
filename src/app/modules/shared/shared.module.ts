@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ProgramsService } from "./service/programs.service";
 import { StoreModule } from "@ngrx/store";
-import * as fromProgramsReducers from "../programs/reducers";
+// import * as fromProgramsReducers from "../programs/reducers";
 import * as fromActivitiesReducers from "../activities/reducers";
 
 @NgModule()
@@ -18,7 +18,7 @@ export class SharedModule {
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature("programs", fromProgramsReducers.programsReducer),
+    // StoreModule.forFeature("programs", fromProgramsReducers.programsReducer),
     StoreModule.forFeature("activities", fromActivitiesReducers.activitiesReducers)
   ],
   declarations: []
