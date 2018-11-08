@@ -28,6 +28,7 @@
     "@ngrx/entity": "^6.1.2",
     "@ngrx/router-store": "^6.1.2",
     "@ngrx/store": "^6.1.2",
+    "@ngrx/store-devtools": "^6.1.2",
     "angular-material": "^1.1.10",
     "core-js": "^2.5.4",
     "cors": "^2.8.4",
