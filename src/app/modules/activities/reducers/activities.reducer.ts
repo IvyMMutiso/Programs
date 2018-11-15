@@ -33,4 +33,4 @@ export function activitiesReducer(
   }
 }
 
-// export const GetActivitiesList = (state: ActivitiesState) => state.activitiesList;
+export const getActivities = (state: ActivitiesState) => state.activitiesList;

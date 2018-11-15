@@ -86,6 +86,7 @@ export class ActivitiesListComponent implements OnInit, OnDestroy {
     if (data.activitiesList.activitiesList !== null) {
       this.activities = data.activitiesList.activitiesList;
       this.dataSource = new MatTableDataSource<Activity>(null);
+      console.log("data : ", this.activities);
       setTimeout(() => {
         this.dataSource = new MatTableDataSource<Activity>(this.activities);
         this.isLoading = false;
@@ -100,6 +101,7 @@ export class ActivitiesListComponent implements OnInit, OnDestroy {
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     const part = this.activities.slice(start, end);
+    console.log("part : ", part);
     this.dataSource = new MatTableDataSource(part);
   }
 
@@ -118,9 +120,7 @@ export class ActivitiesListComponent implements OnInit, OnDestroy {
       data: activity
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
         this.getProgramActivities();
-      }
     });
   }
 

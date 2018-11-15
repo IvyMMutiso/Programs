@@ -39,7 +39,7 @@ export class ActivitiesEffects {
     ofType(ActivitiesActionType.AddActivity),
     switchMap((action: AddActivity) =>
       this.service.addProgramActivity(action.payload).pipe(
-        map((data: Activity[]) => new AddActivitySuccess(data)),
+        map((data: Activity) => new AddActivitySuccess(data)),
         catchError(error => of(error))
       )
     )

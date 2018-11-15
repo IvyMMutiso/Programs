@@ -32,7 +32,6 @@ import { DeleteActivityComponent } from "./modules/activities/components/delete-
 import { ActivitiesEffects } from "./modules/activities/effects/activites.effects";
 import { ProgramsService } from "./modules/shared/service/programs.service";
 import { SharedModule } from "./modules/shared/shared.module";
-import { programsReducer } from "./modules/programs/reducers/programs.reducer";
 import { ProgramsModule } from "./modules/programs/programs.module";
 import { ActivitiesModule } from "./modules/activities/activities.module";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -69,9 +68,6 @@ import { environment } from "src/environments/environment";
     StoreModule.forRoot(reducers, { metaReducers }),
     MatPaginatorModule,
     MatTooltipModule,
-    // StoreModule.forRoot({
-    //   programs: programsReducer
-    // }),
     ProgramsModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

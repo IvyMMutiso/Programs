@@ -27,11 +27,11 @@ export class AddActivity implements Action {
 
 export class AddActivitySuccess implements Action {
   readonly type = ActivitiesActionType.AddActivitySuccess;
-  constructor(public payload: Activity[]) {}
+  constructor(public payload: Activity) {}
 }
 
 export class DeleteActivity implements Action {
-  readonly type = ActivitiesActionType.GetActivitiesList;
+  readonly type = ActivitiesActionType.DeleteActivity;
   constructor(public payload: number) {}
 }
 

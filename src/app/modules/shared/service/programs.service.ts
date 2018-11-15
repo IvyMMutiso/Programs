@@ -52,10 +52,10 @@ export class ProgramsService {
       );
   }
 
-  addProgramActivity(activity: Activity): Observable<Activity[]> {
+  addProgramActivity(activity: Activity): Observable<Activity> {
     return this.httpClient
       .post(`${this.LIVE_URI}workflowlevel2/`, activity, this.httpOptions)
-      .pipe(map((res: Activity[]) => res));
+      .pipe(map((res: Activity) => res));
   }
 
   deleteProgramActivity(activityId: number) {

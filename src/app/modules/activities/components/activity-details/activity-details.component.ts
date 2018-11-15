@@ -7,6 +7,10 @@ import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { Activity } from "../../models/activity";
 import { Program } from "src/app/modules/programs/models/program";
 import { ProgramsService } from "src/app/modules/shared/service/programs.service";
+import { Store } from "@ngrx/store";
+import * as fromStore from "../../reducers/activities.reducer";
+import { AddActivity } from "../../actions/activities.actions";
+
 
 export const MY_FORMATS = {
   display: {
@@ -34,7 +38,8 @@ export class ActivityDetailsComponent implements OnInit {
     private readonly programsService: ProgramsService,
     private readonly dialogRef: MatDialogRef<ActivityDetailsComponent>,
     private readonly formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public program: Program
+    @Inject(MAT_DIALOG_DATA) public program: Program,
+    private readonly store: Store<fromStore.ActivitiesState>
   ) {}
 
   ngOnInit() {
@@ -65,9 +70,13 @@ export class ActivityDetailsComponent implements OnInit {
   }
 
   createProduct() {
+    // this.store.dispatch(new AddActivity(this.activity));
+    // this.closeDialog();
+
     this.programsService.addProgramActivity(this.activity)
       .subscribe((response) => {
         if (response) {
+          console.log("rsponse : ", response);
           this.closeDialog();
         }
       });
