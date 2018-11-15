@@ -20,13 +20,25 @@ export function activitiesReducer(
     case ActivitiesActionType.GetActivitiesList: {
       return { ...state };
     }
+
     case ActivitiesActionType.GetActivitiesListSuccess: {
       return { ...state, activitiesList: action.payload };
     }
+
     case ActivitiesActionType.AddActivity:
     case ActivitiesActionType.AddActivitySuccess: {
         return { ...state, activitiesList: { ...state.activitiesList, ...action.payload } };
     }
+
+    case ActivitiesActionType.DeleteActivity: {
+      const foundActivity = state.activitiesList.find(activity => activity.id === action.payload);
+
+      const newList = [...state.activitiesList];
+      newList.splice(newList.indexOf(foundActivity), 1);
+
+      return { ...state, activitiesList: newList };
+    }
+
     default: {
       return state;
     }

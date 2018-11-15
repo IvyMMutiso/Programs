@@ -37,6 +37,7 @@ export class DeleteActivity implements Action {
 
 export class DeleteActivitySuccess implements Action {
   readonly type = ActivitiesActionType.DeleteActivitySuccess;
+  // constructor(public payload: number) {}
   constructor(public payload: Activity[]) {}
 }
 
@@ -46,4 +47,4 @@ export type ActivitiesListActions =
   | AddActivity
   | AddActivitySuccess
   | DeleteActivity
-  | DeleteActivity;
+  | DeleteActivitySuccess;

@@ -63,4 +63,18 @@ export class ProgramsService {
       .delete(`${this.LIVE_URI}workflowlevel2/` + activityId, this.httpOptions)
       .pipe(map((res: Activity[]) => res));
   }
+
+  // deleteProgramActivity(activityId: number): Observable<any> {
+  //   const result = new BehaviorSubject<any>(false);
+  //   this.httpClient
+  //     .delete(`${this.LIVE_URI}workflowlevel2/` + activityId, this.httpOptions)
+  //     // .pipe(map((res: Activity) => res));
+  //     .pipe(catchError(error))
+  //       .subscribe((removeActivityResponse: boolean) => {
+  //         console.log("service : ", removeActivityResponse);
+  //           result.next(removeActivityResponse);
+  //       });
+
+  //   return result.asObservable().pipe(skip(1));
+  // }
 }

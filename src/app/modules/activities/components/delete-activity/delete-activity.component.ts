@@ -20,11 +20,11 @@ export class DeleteActivityComponent implements OnInit {
   }
 
   deleteActivity() {
-    this.programsService.deleteProgramActivity(this.activity.id)
-    .subscribe((response) => {
-      console.log("response  : ", response);
-      this.closeDialog();
-    });
+    this.programsService.deleteProgramActivity(this.activity.id);
+    this.closeDialog();
+    // .subscribe((response) => {
+    //   this.closeDialog();
+    // });
   }
 
   cancel() {
