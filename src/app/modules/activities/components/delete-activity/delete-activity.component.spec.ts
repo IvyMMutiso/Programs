@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { DeleteActivityComponent } from "./delete-activity.component";
+import { HttpClientModule } from "@angular/common/http";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 describe("DeleteActivityComponent", () => {
   let component: DeleteActivityComponent;
@@ -8,7 +10,11 @@ describe("DeleteActivityComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteActivityComponent ]
+      declarations: [ DeleteActivityComponent ],
+      imports: [HttpClientModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }],
     })
     .compileComponents();
   }));

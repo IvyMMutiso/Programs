@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import * as moment from "moment";
@@ -9,7 +9,6 @@ import { Program } from "src/app/modules/programs/models/program";
 import { ProgramsService } from "src/app/modules/shared/service/programs.service";
 import { Store } from "@ngrx/store";
 import * as fromStore from "../../reducers/activities.reducer";
-import { AddActivity } from "../../actions/activities.actions";
 
 
 export const MY_FORMATS = {
@@ -28,6 +27,7 @@ export const MY_FORMATS = {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityDetailsComponent implements OnInit {
   activityForm: FormGroup;
@@ -58,15 +58,12 @@ export class ActivityDetailsComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-      this.submitted = true;
-  }
-
   saveActivity() {
     this.activity.workflowlevel1 = "https://dev.toladata.io/api/workflowlevel1/" + this.program.id + "/";
     this.activity.expected_start_date = moment(this.activity.expected_start_date, "YYYY-MM-DD[T]HH:mm:ss");
     this.activity.expected_end_date = moment(this.activity.expected_end_date, "YYYY-MM-DD[T]HH:mm:ss");
     this.createProduct();
+    this.submitted = true;
   }
 
   createProduct() {
@@ -76,7 +73,7 @@ export class ActivityDetailsComponent implements OnInit {
     this.programsService.addProgramActivity(this.activity)
       .subscribe((response) => {
         if (response) {
-          console.log("rsponse : ", response);
+          console.log("response : ", response);
           this.closeDialog();
         }
       });

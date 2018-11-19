@@ -1,9 +1,14 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ActivityDetailsComponent } from "./activity-details.component";
-import { DebugElement } from "@angular/core";
+import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { BrowserModule, By } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatDatepickerModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { HttpClientModule } from "@angular/common/http";
+import { ProgramsService } from "src/app/modules/shared/service/programs.service";
+import { StoreModule } from "@ngrx/store";
+import { reducers, metaReducers } from "src/app/reducers";
 
 describe("ActivityDetailsComponent", () => {
   let component: ActivityDetailsComponent;
@@ -14,12 +19,22 @@ describe("ActivityDetailsComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ActivityDetailsComponent],
-      imports: [BrowserModule, FormsModule, ReactiveFormsModule]
+      imports: [BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        StoreModule.forRoot(reducers, { metaReducers })],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      providers: [ProgramsService,
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] }],
     })
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(ActivityDetailsComponent);
         component = fixture.componentInstance;
+        component.ngOnInit();
         de = fixture.debugElement.query(By.css("form"));
         element = de.nativeElement;
       });
@@ -36,11 +51,6 @@ describe("ActivityDetailsComponent", () => {
   });
 
   it("should have a test 'activities details page'", async() => {
-    expect(component).toBeTruthy();
-  });
-
-  it("should set submitted to true", async() => {
-    component.saveActivity();
     expect(component).toBeTruthy();
   });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Activity } from "../../models/activity";
 import { ProgramsService } from "src/app/modules/shared/service/programs.service";
@@ -6,7 +6,8 @@ import { ProgramsService } from "src/app/modules/shared/service/programs.service
 @Component({
   selector: "app-delete-activity",
   templateUrl: "./delete-activity.component.html",
-  styleUrls: ["./delete-activity.component.scss"]
+  styleUrls: ["./delete-activity.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DeleteActivityComponent implements OnInit {
 

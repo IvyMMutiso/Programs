@@ -1,25 +1,27 @@
-<h3 class="header-text">Program Activity</h3>
-<span>Add an activity to the {{ program.name }} program</span>
+<h3 class="header-text">{{ program.name }}</h3>
+<span>Add activity to the program</span>
 
-<form fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="activityForm">
+<form fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="activityForm" class="activity-form">
   <mat-form-field class="input-default">
     <input matInput formControlName="name" placeholder="Activity Name*">
     <mat-error *ngIf="activityForm.get('name').hasError('required')">Activity name is required</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="input-default">
-    <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" formControlName="expected_start_date">
-    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-    <mat-datepicker #startDatePicker></mat-datepicker>
-    <mat-hint>Format: dd.mm.yyyy</mat-hint>
-  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px"> 
+    <mat-form-field class="input-default" fxFlex>
+      <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" formControlName="expected_start_date">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+      <mat-hint>Format: dd.mm.yyyy</mat-hint>
+    </mat-form-field>
 
-  <mat-form-field class="input-default">
-    <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" formControlName="expected_end_date">
-    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-    <mat-datepicker #endDatePicker></mat-datepicker>
-    <mat-hint>Format: dd.mm.yyyy</mat-hint>
-  </mat-form-field>
+    <mat-form-field class="input-default" fxFlex>
+        <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" formControlName="expected_end_date">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+        <mat-hint>Format: dd.mm.yyyy</mat-hint>
+      </mat-form-field>
+  </div>
 </form>
 
 <div fxLayout="row" fxLayoutAlign="end center">
